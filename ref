@@ -1,0 +1,103 @@
+C:\Users\suraz\django_blog>python manage.py shell
+Python 3.7.2 (tags/v3.7.2:9a3ffc0492, Dec 23 2018, 22:20:52) [MSC v.1916 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from blog.models import Post
+>>> from django.contrib.auth.models import User
+>>>
+>>>
+>>> user.objects.all()
+>>> User.objects.all()
+<QuerySet [<User: SurajDas>, <User: User2>]>
+>>> User.objects.filter(username='SurajDas')
+<QuerySet [<User: SurajDas>]>
+>>> User.objects.filter(username='SurajDas').first()
+<User: SurajDas>
+>>> Post.objects.all()
+<QuerySet [<Post: Blog 1>, <Post: Blog 3>, <Post: blog 2 - updated>, <Post: post 4>, <Post: post 5>, <Post: Blog 6>]>
+>>> post_1 = Post.objects.get(id=1)
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "C:\Users\suraz\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\suraz\lib\site-packages\django\db\models\query.py", line 408, in get
+    self.model._meta.object_name
+blog.models.Post.DoesNotExist: Post matching query does not exist.
+>>> Post.objects.all()
+<QuerySet [<Post: Blog 1>, <Post: Blog 3>, <Post: blog 2 - updated>, <Post: post 4>, <Post: post 5>, <Post: Blog 6>]>
+>>> post_2 = Post(title='New_post_db', content='Content from DB',author='SurajDas')
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "C:\Users\suraz\lib\site-packages\django\db\models\base.py", line 483, in __init__
+    _setattr(self, field.name, rel_obj)
+  File "C:\Users\suraz\lib\site-packages\django\db\models\fields\related_descriptors.py", line 211, in __set__
+    self.field.remote_field.model._meta.object_name,
+ValueError: Cannot assign "'SurajDas'": "Post.author" must be a "User" instance.
+>>> user = User.objects.first()
+>>> user
+<User: SurajDas>
+>>> post_2 = Post(title='New_post_db', content='Content from DB',author=user)
+>>> post_2
+<Post: New_post_db>
+>>> post_2.user
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'Post' object has no attribute 'user'
+>>> post_2.suthor
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'Post' object has no attribute 'suthor'
+>>> post_2.author
+<User: SurajDas>
+>>> post_2.save()
+>>> Post.objects.all()
+<QuerySet [<Post: Blog 1>, <Post: Blog 3>, <Post: blog 2 - updated>, <Post: post 4>, <Post: post 5>, <Post: Blog 6>, <Post: New_post_db>]>
+>>> post_2.id
+18
+>>> Post.objects.last()
+<Post: New_post_db>
+>>> post = Post.objects.first()
+>>> post.id
+12
+>>> post.author
+<User: SurajDas>
+>>> post.content
+'Blog1 details'
+>>> post.author.email
+'surazdas23@gmail.com'
+>>> Post.objects.get()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+  File "C:\Users\suraz\lib\site-packages\django\db\models\manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\suraz\lib\site-packages\django\db\models\query.py", line 412, in get
+    (self.model._meta.object_name, num)
+blog.models.Post.MultipleObjectsReturned: get() returned more than one Post -- it returned 7!
+>>> user
+<User: SurajDas>
+>>> user.post_set
+<django.db.models.fields.related_descriptors.create_reverse_many_to_one_manager.<locals>.RelatedManager object at 0x048E6870>
+>>> user.post_set.all()
+<QuerySet [<Post: Blog 1>, <Post: Blog 3>, <Post: blog 2 - updated>, <Post: post 4>, <Post: post 5>, <Post: Blog 6>, <Post: New_post_db>]>
+>>>
+>>> user
+<User: SurajDas>
+>>> user.post_set
+<django.db.models.fields.related_descriptors.create_reverse_many_to_one_manager.<locals>.RelatedManager object at 0x048E6870>
+>>> user.post_set.all()
+<QuerySet [<Post: Blog 1>, <Post: Blog 3>, <Post: blog 2 - updated>, <Post: post 4>, <Post: post 5>, <Post: Blog 6>, <Post: New_post_db>]>
+>>> post
+<Post: Blog 1>
+>>> user
+<User: SurajDas>
+>>> user.post_set.create(title='USer specific blog title', content = 'Create for user SurajDas')
+<Post: USer specific blog title>
+>>> user.post_set.all(0
+...
+...
+KeyboardInterrupt
+>>> user.post_set.all()
+<QuerySet [<Post: Blog 1>, <Post: Blog 3>, <Post: blog 2 - updated>, <Post: post 4>, <Post: post 5>, <Post: Blog 6>, <Post: New_post_db>, <Post: USer specific blog title>]>
+>>>
+
+
