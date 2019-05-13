@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 # import include to include the url path of the application
 
+
+# Added the blog app url and set as home page
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),

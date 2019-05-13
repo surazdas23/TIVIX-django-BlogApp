@@ -9,7 +9,13 @@ from django.views.generic import (
 )
 
 
-# class based views
+'''Each class inherited from the django libraries django.views.generic in order to get a list of all the blogs(PostListView)
+and each blog can be modified(PostUpdateView/PostDeleteView) and a new blog can be created(PostCreateView) for the Post model.
+and user can select a particular blog in order to see details related to that particular blog(PostDetailView) 
+'''
+
+
+# PostListView class is used to display all the added blogs into the model Post
 class PostListView(ListView):
     model = Post
     template_name = 'blog/home.html'
@@ -18,10 +24,12 @@ class PostListView(ListView):
     # paginate_by = 2
 
 
+# Each blog post can be viewed separately by accessing the primary key from the database
 class PostDetailView(DetailView):
     model = Post
 
 
+# To create a new post for the model Post,It will validate and assign a user while creating a new post
 class PostCreateView(CreateView):
     model = Post
     fields = ['title', 'content']
@@ -31,6 +39,7 @@ class PostCreateView(CreateView):
         return super().form_valid(form)
 
 
+# Allows user to updated the post, created by the user himself
 class PostUpdateView(UpdateView):
     model = Post
     fields = ['title', 'content']
@@ -40,6 +49,7 @@ class PostUpdateView(UpdateView):
         return super().form_valid(form)
 
 
+# User can delete their post, and once deleted application will redirect to the homepage as success message
 class PostDeleteView(DeleteView):
     model = Post
     success_url = '/'

@@ -30,6 +30,8 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+# blog application and crispy_forms added to the project additionally/
+
 INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'django.contrib.admin',
@@ -121,4 +123,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Crispy form to enhancing the application style
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
